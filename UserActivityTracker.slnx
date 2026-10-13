@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UserActivityTracker/UserActivityTracker.csproj" />
+  <Project Path="UserActivityTrackerTests/UserActivityTrackerTests.csproj" Id="74864282-1c4a-4e1b-a72d-9c47f90e6b91" />
+</Solution>

@@ -1,0 +1,46 @@
+<UserControl x:Class="UserActivityTracker.Views.ActivityTypeFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="500">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left: Search & Grid -->
+        <Grid Grid.Column="0" Margin="0,0,15,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                <TextBlock Text="Search Activities:" FontWeight="SemiBold" Margin="0,0,0,3" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Padding="3" />
+            </StackPanel>
+            <DataGrid Grid.Row="1" 
+                      ItemsSource="{Binding ActivityTypes}" 
+                      SelectedItem="{Binding SelectedActivityType, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Right: Form -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Top">
+            <TextBlock Text="Activity Type Form" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+            <Label Content="Activity Name:" />
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
+
+            <Button Content="Save / Update" Command="{Binding SaveCommand}" Padding="5" Margin="0,0,0,5" />
+            <Button Content="Clear / New" Command="{Binding ClearCommand}" Padding="5" Margin="0,0,0,5" />
+            <Button Content="Delete Activity" Command="{Binding DeleteCommand}" Background="#FFF2F2" Foreground="DarkRed" Padding="5" Margin="0,10,0,0" />
+        </StackPanel>
+    </Grid>
+</UserControl>
