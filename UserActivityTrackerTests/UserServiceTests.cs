@@ -4,7 +4,6 @@ using UserActivityTrackerTests.Helpers;
 
 namespace UserActivityTrackerTests.Tests
 {
-    [CollectionDefinition("UserServiceTests", DisableParallelization = true)]
     public class UserServiceTests
     {
         [Fact]
