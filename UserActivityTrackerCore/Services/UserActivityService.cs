@@ -4,15 +4,14 @@ using UserActivityTracker.Models;
 
 namespace UserActivityTracker.Services
 {
-    public class UserActivityService
+    public class UserActivityService : ServiceBase
     {
-        private readonly UserActivityTrackerDbContext _dbContext;
         private readonly UserService _userService;
         private readonly ActivityService _activityService;
 
         public UserActivityService(UserActivityTrackerDbContext dbContext, UserService userService, ActivityService activityService)
+            :base(dbContext)
         {
-            _dbContext = dbContext;
             _userService = userService;
             _activityService = activityService;
         }

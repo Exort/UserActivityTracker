@@ -4,13 +4,11 @@ using UserActivityTracker.Models;
 
 namespace UserActivityTracker.Services
 {
-    public class ActivityService
+    public class ActivityService : ServiceBase
     {
-        private readonly UserActivityTrackerDbContext _dbContext;
 
-        public ActivityService(UserActivityTrackerDbContext dbContext)
+        public ActivityService(UserActivityTrackerDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<ActivityType>> GetAllActivityTypesAsync()

@@ -6,29 +6,10 @@ using UserActivityTracker.Utils;
 
 namespace UserActivityTracker.Services
 {
-    public class UserService
+    public class UserService : ServiceBase
     {
-        public event Action<User?>? LoggedUserChanged;
-
-        private UserActivityTrackerDbContext _dbContext;
-
-        public UserService(UserActivityTrackerDbContext dbContext)
+        public UserService(UserActivityTrackerDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
-        }
-
-        public User? _currentLoggedUser;
-        public User? CurrentLoggedUser
-        {
-            get => _currentLoggedUser;
-            private set
-            {
-                if(_currentLoggedUser != value)
-                {
-                    _currentLoggedUser = value;
-                    LoggedUserChanged?.Invoke(CurrentLoggedUser);
-                }
-            }
         }
 
         public async Task<User> CreateUserAsync(string userName, string firstName, string lastName, string password)
@@ -67,10 +48,6 @@ namespace UserActivityTracker.Services
             if (user == null)
                 return false;
 
-            //This could be improved by adding error reporting instead of just returning false
-            if (user == CurrentLoggedUser)
-                return false;
-
             _dbContext.Users.Remove(user);
             await _dbContext.SaveChangesAsync();
             return true;
@@ -86,22 +63,6 @@ namespace UserActivityTracker.Services
             // Tells EF Core that this entity already exists and has been modified
             _dbContext.Users.Update(user);
             await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<User?> AuthenticateAsync(string userName, string password)
-        {
-            User? foundUser = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == userName);
-            if (foundUser != null && PasswordUtils.VerifyPassword(password, foundUser.SaltedPassword))
-            {
-                CurrentLoggedUser = foundUser;
-            }
-
-            return CurrentLoggedUser;
-        }
-
-        public void LogoutCurrentUser()
-        {
-            CurrentLoggedUser = null;
         }
 
         /// <summary>
