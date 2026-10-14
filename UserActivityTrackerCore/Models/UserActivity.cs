@@ -5,10 +5,10 @@
         public int Id { get; set; }
         public DateTime Date { get; set; }
 
-        internal int UserId { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; } = null!;
 
-        internal int ActivityTypeId { get; set; }
+        public int ActivityTypeId { get; set; }
         public ActivityType ActivityType { get; set; } = null!;
     }
 }
